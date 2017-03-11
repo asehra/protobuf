@@ -519,7 +519,7 @@ func TestRequiredBit(t *testing.T) {
 	err := o.Marshal(pb)
 	if err == nil {
 		t.Error("did not catch missing required fields")
-	} else if strings.Index(err.Error(), "Kind") < 0 {
+	} else if !strings.Contains(err.Error(), "Kind") {
 		t.Error("wrong error type:", err)
 	}
 }
@@ -1854,7 +1854,7 @@ func TestRequiredNotSetError(t *testing.T) {
 		o.DebugPrint("", bytes)
 		t.Fatalf("expected = %s", expected)
 	}
-	if strings.Index(err.Error(), "RequiredField.Label") < 0 {
+	if !strings.Contains(err.Error(), "RequiredField.Label") {
 		t.Errorf("marshal-1 wrong err msg: %v", err)
 	}
 	if !equal(bytes, expected, t) {
@@ -1870,7 +1870,7 @@ func TestRequiredNotSetError(t *testing.T) {
 		o.DebugPrint("", bytes)
 		t.Fatalf("string = %s", expected)
 	}
-	if strings.Index(err.Error(), "RequiredField.{Unknown}") < 0 {
+	if !strings.Contains(err.Error(), "RequiredField.{Unknown}") {
 		t.Errorf("unmarshal wrong err msg: %v", err)
 	}
 	bytes, err = Marshal(pbd)
@@ -1879,7 +1879,7 @@ func TestRequiredNotSetError(t *testing.T) {
 		o.DebugPrint("", bytes)
 		t.Fatalf("string = %s", expected)
 	}
-	if strings.Index(err.Error(), "RequiredField.Label") < 0 {
+	if !strings.Contains(err.Error(), "RequiredField.Label") {
 		t.Errorf("marshal-2 wrong err msg: %v", err)
 	}
 	if !equal(bytes, expected, t) {
