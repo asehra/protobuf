@@ -888,8 +888,5 @@ func UnmarshalText(s string, pb Message) error {
 	}
 	pb.Reset()
 	v := reflect.ValueOf(pb)
-	if pe := newTextParser(s).readStruct(v.Elem(), ""); pe != nil {
-		return pe
-	}
-	return nil
+	return newTextParser(s).readStruct(v.Elem(), "")
 }
